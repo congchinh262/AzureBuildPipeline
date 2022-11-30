@@ -50,3 +50,13 @@ jobs:
         displayName: 'Move to file over to be save for the next build'
         inputs:
           script: 'move "$(Build.Repository.LocalPath)\Library" "$(Build.BinariesDirectory)\Library"'
+  - job: Publish
+    dependsOn: ['BuildGameWindows']
+    steps:
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.BinariesDirectory)\Build'
+          includeRootFolder: true
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)\demobuild.zip'
+          replaceExistingArchive: true
