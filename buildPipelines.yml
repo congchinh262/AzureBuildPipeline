@@ -18,6 +18,6 @@ jobs:
       - task: UnityBuildTask@3
         inputs:
           buildTarget: 'standalone'
-          unityEditorsPathMode: 'environmentVariable'
+          unityEditorsPathMode: 'unityHub'
           outputPath: '$(Build.BinariesDirectory)\Build'
           outputFileName: 'build'
