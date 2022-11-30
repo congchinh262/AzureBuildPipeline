@@ -8,8 +8,10 @@ trigger:
 
 pool:
   name: Default
-  demands:
+  demands: 
     BuildServer
+
+  
 
 steps:
 - script: echo Hello, world!
