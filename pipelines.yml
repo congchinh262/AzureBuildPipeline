@@ -9,9 +9,8 @@ trigger:
 pool:
   name: Default
   demands: 
-    BuildServer
-
-  
+    - BuildServer
+    - Agent.Version -equals 2.213.2
 
 steps:
 - script: echo Hello, world!
