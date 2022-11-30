@@ -60,3 +60,7 @@ jobs:
           archiveType: 'zip'
           archiveFile: '$(Build.ArtifactStagingDirectory)\demobuild.zip'
           replaceExistingArchive: true
+      - task: PowerShell@2
+        inputs:
+          targetType: 'inline'
+          script: 'cd "C:\Users\buildserver\Downloads\azcopy_windows_amd64_10.16.2\azcopy_windows_amd64_10.16.2"; .\azcopy copy "$(Build.ArtifactStagingDirectory)\demobuild.zip" "https://unitybuildartifact.blob.core.windows.net/builddemo?sp=racwl&st=2022-11-30T08:45:48Z&se=2022-12-31T16:45:48Z&spr=https&sv=2021-06-08&sr=c&sig=4EjzfGcvxcigKNsKDi%2FCF1ohw8cmiDY6pdpVD7J00AY%3D"  --log-level=INFO --recursive'
