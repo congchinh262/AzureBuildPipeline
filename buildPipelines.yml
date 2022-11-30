@@ -12,7 +12,27 @@ pool:
     UnityBuildServer
 
 jobs:
+  - job: Prepare
+    steps:
+      - task: DeleteFiles@1
+        displayName: 'Clean up old artifact'
+        inputs:
+          SourceFolder: '$(Build.ArtifactStagingDirectory)'
+          Contents: '**/*'
+      - task: DeleteFiles@1
+        displayName: 'Delete old library'
+        inputs:
+          SourceFolder: '$(Build.Repository.LocalPath)\Library'
+          Contents: '**/*'
+      - task: CmdLine@2
+        displayName: 'Restore library from the last bulid for performance'
+        inputs:
+          script: 'if EXIST "$(Build.BinariesDirectory)\Library\" move "$(Build.BinariesDirectory)\Library" "$(Build.Repository.LocalPath)\Library"'
+
+
   - job: BuildGameWindows
+    # make sure Build process only run after Prepare Job finished
+    dependsOn: ['Prepare']
     steps:
       - task: UnityBuildTask@3
         inputs:
@@ -20,3 +40,13 @@ jobs:
           unityEditorsPathMode: 'unityHub'
           outputPath: '$(Build.BinariesDirectory)\Build'
           outputFileName: 'build'
+      # secure the library for performance reasons
+      - task: DeleteFiles@1
+        displayName: 'Clean up some library'
+        inputs:
+          SourceFolder: '$(Build.BinariesDirectory)\Library'
+          Contents: '**/*'
+      - task: CmdLine@2
+        displayName: 'Move to file over to be save for the next build'
+        inputs:
+          script: 'move "$(Build.Repository.LocalPath)\Library" "$(Build.BinariesDirectory)\Library"'
