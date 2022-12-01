@@ -63,4 +63,4 @@ jobs:
       - task: PowerShell@2
         inputs:
           targetType: 'inline'
-          script: 'cd "C:\Users\buildserver\Downloads\azcopy_windows_amd64_10.16.2\azcopy_windows_amd64_10.16.2"; .\azcopy copy "$(Build.ArtifactStagingDirectory)\demobuild.zip" "https://unitybuildartifact.blob.core.windows.net/builddemo?sp=racwl&st=2022-11-30T08:45:48Z&se=2022-12-31T16:45:48Z&spr=https&sv=2021-06-08&sr=c&sig=4EjzfGcvxcigKNsKDi%2FCF1ohw8cmiDY6pdpVD7J00AY%3D"  --log-level=INFO --recursive'
+          script: 'cd "C:\Users\buildserver\Downloads\azcopy_windows_amd64_10.16.2\azcopy_windows_amd64_10.16.2"; .\azcopy copy "$(Build.ArtifactStagingDirectory)\demobuild.zip" "https://builddemoartifact.blob.core.windows.net/builddemo?sp=r&st=2022-12-01T13:12:25Z&se=2022-12-30T21:12:25Z&spr=https&sv=2021-06-08&sr=c&sig=JGRYXCiLNj0u245e0NesRiBat1eMePZ3Lv5a%2FqpoI%2Bs%3D"  --log-level=INFO --recursive'
